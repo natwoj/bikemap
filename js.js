@@ -3,7 +3,9 @@ var mymap = L.map('map').setView([
     50.26300965209187, 19.023685455322266], 15);
 
 /* set my location */
-    mymap.locate({setView: true, maxZoom: 15});
+    mymap.locate({
+        setView: true, maxZoom: 15
+    });
 
 /* thunderforest cycle map tile layer */
 var Thunderforest_OpenCycleMap = L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=4fbca27dba3f450787b52b350d86ddaf', {
