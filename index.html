@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Mapa rowerowa Śląskie</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="styles.css"/>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -17,16 +17,21 @@
         <div id="map"></div>
         <script>
 var mymap = L.map('map').setView([
-          50.26300965209187, 19.023685455322266], 13);
-L.tileLayer('https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=wuLf3h3hRHTvDIQbuWJ9', {
-    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-    maxZoom: 18,
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'wuLf3h3hRHTvDIQbuWJ9'
+          50.26300965209187, 19.023685455322266], 15);
+          mymap.locate({setView: true, maxZoom: 15});
+ var Thunderforest_OpenCycleMap = L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=4fbca27dba3f450787b52b350d86ddaf', {
+	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	apikey: '<4fbca27dba3f450787b52b350d86ddaf>',
+	maxZoom: 22
 }).addTo(mymap);
 
-var marker = L.marker([51.5, -0.09]).addTo(mymap);
+function onLocationFound(e) {
+    var radius = e.accuracy;
+    L.marker(e.latlng).addTo(mymap)
+        .bindPopup("Twoja obecna lokalizacja na podstawie danych GPS").openPopup();
+    L.circle(e.latlng, radius).addTo(mymap);
+}
+mymap.on('locationfound', onLocationFound);
         </script>
         <script src="" async defer></script>
     </body>
