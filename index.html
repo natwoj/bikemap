@@ -28,10 +28,15 @@ var mymap = L.map('map').setView([
 function onLocationFound(e) {
     var radius = e.accuracy;
     L.marker(e.latlng).addTo(mymap)
-        .bindPopup("Twoja obecna lokalizacja na podstawie danych GPS").openPopup();
+        .bindPopup("Your location based on your current position. You cant hide:)").openPopup();
     L.circle(e.latlng, radius).addTo(mymap);
 }
 mymap.on('locationfound', onLocationFound);
+
+function onLocationError(e) {
+    alert("You're not sharing your location with us. We can not show you bike trails in the area. Sad :((")
+}
+mymap.on('locationerror', onLocationError);
         </script>
         <script src="" async defer></script>
     </body>
