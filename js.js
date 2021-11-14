@@ -28,3 +28,25 @@ function onLocationError(e) {
 alert("You're not sharing your location with us. We can not show you bike trails in the area. Sad :((")
 }
 mymap.on('locationerror', onLocationError);
+
+/* creating layer of main trails & adding to map*/
+let ironTrail = L.marker([49.9454207, 18.6101103]).bindPopup('Iron Trail beginning');
+let eaglesNestTrail  = L.marker([50.79646, 19.12409]).bindPopup('Eagles Nests Trail beginning');
+let vistulaTrail  = L.marker([49.6473215, 18.867739]).bindPopup('Vistula Trail beginning')
+
+let mainTrails = L.layerGroup([ironTrail, eaglesNestTrail, vistulaTrail]);
+mainTrails.addTo(mymap);
+
+/*creating controls between layers */
+var baseMap = {
+    "Thunderforest": Thunderforest_OpenCycleMap,
+};
+
+var overlayMap = {
+    "Main trails": mainTrails;
+};
+
+L.control.layers(Thunderforest_OpenCycleMap,layerAddedToMap).addTo(mymap);
+
+
+
